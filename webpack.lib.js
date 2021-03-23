@@ -1,8 +1,8 @@
 var path = require('path');
 var webpack = require('webpack');
+var node_modules_dir = path.resolve(__dirname, 'node_modules');
 
 module.exports = {
-  mode: 'development',
   resolve: {
     extensions: ['.js', '.jsx', '.js', '.css'],
     mainFields: [
@@ -15,21 +15,15 @@ module.exports = {
       'index'
     ]
   },
-  devtool: 'eval',
-  entry: [
-    'webpack-dev-server/client?http://localhost:3000',
-    'webpack/hot/only-dev-server',
-    './examples'
-  ],
+  entry: ['./src'],
   output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
-    publicPath: '/dist/'
+    path: path.join(__dirname, 'lib'),
+    filename: 'index.js',
+    publicPath: '/static/'
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()],
+  plugins: [],
   module: {
     rules: [
-      { test: /\.(png|svg)$/, use: 'url-loader?limit=8192' },
       {
         test: /^((?!\.module).)*\.css$/,
         use: ['style-loader', 'css-loader']
@@ -43,8 +37,9 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        use: ['react-hot-loader/webpack', 'babel-loader'],
-        include: [path.join(__dirname, 'src'), path.join(__dirname, 'example')]
+        use: ['babel-loader'],
+        exclude: [node_modules_dir],
+        include: [path.join(__dirname, 'src')]
       }
     ]
   }

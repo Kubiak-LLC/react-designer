@@ -26,18 +26,18 @@ module.exports = {
     rules: [
       {
         test: /^((?!\.module).)*\.css$/,
-        loaders: ['style-loader', 'css-loader']
+        use: ['style-loader', 'css-loader']
       },
       {
         test: /\.module\.css$/,
-        loaders: [
+        use: [
           'style-loader',
           'css-loader?modules&localIdentName=[name]__[local]___[hash:base64:5]!'
         ]
       },
       {
         test: /\.js$/,
-        loaders: ['babel-loader'],
+        use: ['babel-loader'],
         exclude: [node_modules_dir],
         include: [path.join(__dirname, 'src'), path.join(__dirname, 'example')]
       }
